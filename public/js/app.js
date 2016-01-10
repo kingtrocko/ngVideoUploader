@@ -1,12 +1,12 @@
 (function() {
     'use strict';
     
-    angular.module('app', []).controller('indexController', IndexController);
+    angular.module('app', ['ngVideoUploader']).controller('indexController', IndexController);
     
     IndexController.$inject = ['$scope'];
     
     function IndexController($scope){
-        $scope.caption = 'Hello world!';
+        $scope.caption = 'Wistia widget - Video uploader';
     }
     
 })();
