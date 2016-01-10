@@ -1,0 +1,29 @@
+{
+  "name": "ng-video-uploader",
+  "version": "1.0.0",
+  "description": "AngularJS directive to upload videos to wistia account",
+  "main": "server.js",
+  "devDependencies": {},
+  "dependencies": {
+    "express": "4.13.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingtrocko/ngVideoUploader.git"
+  },
+  "keywords": [
+    "wistia",
+    "API",
+    "angularjs"
+  ],
+  "author": "Nahum Fabian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kingtrocko/ngVideoUploader/issues"
+  },
+  "homepage": "https://github.com/kingtrocko/ngVideoUploader#readme"
+}
