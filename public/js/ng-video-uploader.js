@@ -6,17 +6,9 @@ uploader.directive('videoUploader',['$http', '$window', '$timeout', function($ht
     var showVideo = false;
     return {
       restrict : 'E',
+      scope: {},
       templateUrl: 'js/video-uploader-template.html',
       controller: ['$scope', function($scope){
-          
-          function makeRequest(endpoint, callback){
-              $.getJSON(endpoint + "&format=json&callback=?", callback);
-          }
-          
-          function parseJSON(json) {
-            console.log(json.thumbnail_url);
-            debugger;
-          };
           
           function intializeUploadPlugin(){
               $('#fileupload').fileupload({
@@ -31,6 +23,7 @@ uploader.directive('videoUploader',['$http', '$window', '$timeout', function($ht
                         
                         var formData = new FormData();
                         formData.append('file', file);
+                        formData.append('project_id', 'ifemiu8aom');
                         
                         $(this).fileupload('option', 'formData', formData );
                         data.submit();
@@ -51,54 +44,25 @@ uploader.directive('videoUploader',['$http', '$window', '$timeout', function($ht
                     if(showVideo){
                         var video = data.result;
                         var endpoint = 'http://fast.wistia.com/oembed';
-                        
-                        console.log('the hashed id is ', video.hashed_id);
-                        
                         var embedUrl = 'http://home.wistia.com/medias/' + video.hashed_id;         
                         embedUrl += '?embedType=api&handle=oEmbedVideo';
                         embedUrl = encodeURIComponent(embedUrl);
-                        
                         endpoint += '?url=' + embedUrl;
                         console.log(endpoint);
-                        
-                        
-                        //makeRequest(endpoint, parseJSON);
-                        
-                        
-                       /* $http.get(endpoint).then(
-                            //onSuccess
-                            function(res){
-                                debugger;
-                                console.log('response',res);
-                            }, 
-                            function(res){
-                                debugger;
-                            });*/
-                        
-                        
-                        $timeout(function(){
-                          showVideoModal(data.result);
-                        },10000);
+
+                        showVideoThumbnail(data.result);
                     }
                 });          
           }
           
-          function showVideoModal(video_result){
-              $('#video-modal').on('show.bs.modal', function (event) {
-                  var modal = $(this);
-                  //var videoDiv = '<iframe src="//fast.wistia.net/embed/iframe/'+ video_result.hashed_id +'" allowtransparency="true" frameborder="0" scrolling="no" class="wistia_embed" name="wistia_embed" allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width="640" height="360"></iframe>';
-                  
-                  var videoDiv = '<div class="wistia_embed wistia_async_'+ video_result.hashed_id +'" style="width:570px;height:320px;"></div>';
-                  
-                  modal.find('.modal-title').text(video_result.name);
-                  modal.find('.modal-body').append(videoDiv);
-              });
+          function showVideoThumbnail(video){
+              var thumbnail = $('#video-thumbnail'); 
+              thumbnail.attr('src', video.thumbnail.url);
+              thumbnail.css('height', video.thumbnail.height);
+              thumbnail.css('width', video.thumbnail.width);
               
-              $('#video-modal').on('hidden.bs.modal', function(event){
-                  $window.location.reload();
-              });
-                            
-              $('#video-modal').modal('show');
+              thumbnail.closest('a').css('display', 'block');
+              thumbnail.closest('a').attr('data-hashed-id', video.hashed_id);
           }
           
           (function initController(){
