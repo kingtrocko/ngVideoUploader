@@ -14,11 +14,12 @@
         $scope.showVideo = function(){
             var hashed_id = $('#video-thumbnail-container').attr('data-hashed-id');
                     
-            var endpoint = 'http://fast.wistia.com/oembed';
+            var endpoint = 'https://fast.wistia.com/oembed';
             var embedUrl = 'http://home.wistia.com/medias/' + hashed_id;         
             embedUrl += '?embedType=api&handle=oEmbedVideo';
             embedUrl = encodeURIComponent(embedUrl);
             endpoint += '?url=' + embedUrl;
+            console.log(endpoint);
             
             $http.get(endpoint).then(
                 function(res){

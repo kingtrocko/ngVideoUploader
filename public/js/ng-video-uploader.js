@@ -42,14 +42,6 @@ uploader.directive('videoUploader',['$http', '$window', '$timeout', function($ht
                 .on('fileuploadalways', function(e, data){
                     console.log(data.result);
                     if(showVideo){
-                        var video = data.result;
-                        var endpoint = 'http://fast.wistia.com/oembed';
-                        var embedUrl = 'http://home.wistia.com/medias/' + video.hashed_id;         
-                        embedUrl += '?embedType=api&handle=oEmbedVideo';
-                        embedUrl = encodeURIComponent(embedUrl);
-                        endpoint += '?url=' + embedUrl;
-                        console.log(endpoint);
-
                         showVideoThumbnail(data.result);
                     }
                 });          
